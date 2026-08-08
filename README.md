@@ -1,0 +1,2 @@
+# salaryCalculator
+For R BRIGHT
