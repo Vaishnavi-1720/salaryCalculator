@@ -97,10 +97,10 @@ def process_sheet(raw_df):
     df = df.dropna(how="all").reset_index(drop=True)
     df = df.iloc[:-1]
     df = df.drop(columns=[c for c in df.columns if "Total Break" in str(c)], errors="ignore")
-
-    df.insert(0, "Employee ID", emp_id)
-    df.insert(1, "Employee Name", emp_name)
-    df.insert(2, "Department Name", dept)
+    df.insert(0, "S.No", range(1, len(df) + 1))
+    df.insert(1, "Employee ID", emp_id)
+    df.insert(2, "Employee Name", emp_name)
+    df.insert(3, "Department Name", dept)
 
     return recalculate_ot(df)
 
@@ -246,7 +246,9 @@ for sheet_name, df in st.session_state.edited_sheets.items():
             for c in df.columns
         },
         use_container_width=True,
-        num_rows="fixed"
+        num_rows="fixed",
+        hide_index=True
+        
     )
 
     recalculated_df = recalculate_ot(edited_df.copy())
@@ -291,6 +293,8 @@ if all_dfs:
         report_rows.append({
             "Month-Year": f'{month} - {year}',
             "Employee Name": df["Employee Name"].iloc[0],
+            "Total working days": working_days,
+            "Days worked": len(df),
             "Per Month Salary": salary,
             "Per Day Salary": per_day,
             "Per Hour Salary": per_hour,
@@ -302,7 +306,8 @@ if all_dfs:
         })
 
     report_df = pd.DataFrame(report_rows)
-    st.dataframe(report_df, use_container_width=True)
+    report_df.insert(0, "S.No", range(1, len(report_df) + 1))
+    st.dataframe(report_df, use_container_width=True, hide_index=True)
     csv = report_df.to_csv(index=False).encode("utf-8")
     st.download_button("⬇️ Download Monthly Report", csv, f"report_{month}_{int(year)}.csv", "text/csv")
     st.markdown('</div>', unsafe_allow_html=True)
