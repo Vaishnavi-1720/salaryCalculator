@@ -247,7 +247,7 @@ for sheet_name, df in st.session_state.edited_sheets.items():
         },
         use_container_width=True,
         num_rows="fixed",
-        hide_index=True
+        hide_index=True,
         
     )
 
