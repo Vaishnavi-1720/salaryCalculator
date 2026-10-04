@@ -180,7 +180,7 @@ if st.session_state.file_bytes is None and os.path.exists(CACHE_FILE):
     for sheet_name, raw_df in raw_sheets.items():
         df = process_sheet(raw_df)
         if df is not None:
-            df.insert(3, "Sheet Name", sheet_name)
+            df.insert(4, "Sheet Name", sheet_name)
             st.session_state.edited_sheets[sheet_name] = df
 
 col_file, = st.columns(1)
@@ -207,7 +207,7 @@ if uploaded_file and st.session_state.file_name != uploaded_file.name:
     for sheet_name, raw_df in raw_sheets.items():
         df = process_sheet(raw_df)
         if df is not None:
-            df.insert(3, "Sheet Name", sheet_name)
+            df.insert(4, "Sheet Name", sheet_name)
             st.session_state.edited_sheets[sheet_name] = df
 
 all_dfs = []
