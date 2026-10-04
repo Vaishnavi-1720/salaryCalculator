@@ -289,7 +289,9 @@ if all_dfs:
         std_amount = round((total_std_mins / 60) * per_hour, 2)
         ot_amount = round((total_ot_mins / 60) * per_hour * 1.5, 2)
         report_rows.append({
+            "Month-Year": f'{month} - {year}',
             "Employee Name": df["Employee Name"].iloc[0],
+            "Per Month Salary": salary,
             "Per Day Salary": per_day,
             "Per Hour Salary": per_hour,
             "Total WT - OT": minutes_to_hhmm(total_std_mins),
